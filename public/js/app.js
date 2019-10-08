@@ -1909,14 +1909,18 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _UploadFile__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UploadFile */ "./resources/js/components/contacts/UploadFile.vue");
+/* harmony import */ var _MapFields__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MapFields */ "./resources/js/components/contacts/MapFields.vue");
+//
 //
 //
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    UploadFile: _UploadFile__WEBPACK_IMPORTED_MODULE_0__["default"]
+    UploadFile: _UploadFile__WEBPACK_IMPORTED_MODULE_0__["default"],
+    MapFields: _MapFields__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
@@ -1926,6 +1930,92 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     showUploadFileComponent: function showUploadFileComponent() {
       return this.file.id === undefined;
+    },
+    showMapFieldsComponent: function showMapFieldsComponent() {
+      return this.file.field_mappings === undefined;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/contacts/MapFields.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/contacts/MapFields.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['value'],
+  computed: {
+    recordsCount: function recordsCount() {
+      return this.value.csv_records.length;
+    }
+  },
+  data: function data() {
+    return {
+      field_mappings: this.value.csv_fields.reduce(function (field_mappings, field) {
+        var contactFields = ['team_id', 'unsubscribed_status', 'first_name', 'last_name', 'phone', 'email', 'sticky_phone_number_id', 'twitter_id', 'fb_messenger_id', 'time_zone'];
+        field_mappings[field] = contactFields.includes(field) ? field : 'custom_attribute';
+        return field_mappings;
+      }, {})
+    };
+  },
+  methods: {
+    submit: function submit() {
+      var _this = this;
+
+      axios.patch("/api/contacts/files/".concat(this.value.id, "/mappings"), {
+        field_mappings: this.field_mappings
+      }).then(function (response) {
+        _this.$emit('input', response.data);
+      })["catch"](function (response) {
+        console.log('An error ocurred while updating the field mappings');
+      });
     }
   }
 });
@@ -37430,9 +37520,178 @@ var render = function() {
           expression: "file"
         }
       })
+    : _vm.showMapFieldsComponent
+    ? _c("map-fields", {
+        model: {
+          value: _vm.file,
+          callback: function($$v) {
+            _vm.file = $$v
+          },
+          expression: "file"
+        }
+      })
     : _vm._e()
 }
 var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/contacts/MapFields.vue?vue&type=template&id=9a0b8538&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/contacts/MapFields.vue?vue&type=template&id=9a0b8538& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "text-center" }, [
+    _c("h2", [_vm._v("Map Fields")]),
+    _vm._v(" "),
+    _c("p", { staticClass: "text-muted" }, [
+      _vm._v("Map the fields in your CSV to database fields.")
+    ]),
+    _vm._v(" "),
+    _c("p", [_vm._v("Found " + _vm._s(_vm.recordsCount) + " contacts in:")]),
+    _vm._v(" "),
+    _c("p", { staticClass: "text-success" }, [
+      _c("i", { staticClass: "fas fa-check" }),
+      _vm._v(" " + _vm._s(_vm.value.name))
+    ]),
+    _vm._v(" "),
+    _c("table", { staticClass: "table table-bordered table-striped" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.value.csv_fields, function(field) {
+          return _c("tr", [
+            _c("td", { domProps: { textContent: _vm._s(field) } }),
+            _vm._v(" "),
+            _c("td", [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.field_mappings[field],
+                      expression: "field_mappings[field]"
+                    }
+                  ],
+                  staticClass: "custom-select",
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.field_mappings,
+                        field,
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { value: "team_id" } }, [
+                    _vm._v("Team ID")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "unsubscribed_status" } }, [
+                    _vm._v("Unsubscribed Status")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "first_name" } }, [
+                    _vm._v("First Name")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "last_name" } }, [
+                    _vm._v("Last Name")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "phone" } }, [
+                    _vm._v("Phone")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "email" } }, [
+                    _vm._v("Email")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "sticky_phone_number_id" } }, [
+                    _vm._v("Sticky Phone Number ID")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "twitter_id" } }, [
+                    _vm._v("Twitter ID")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "fb_messenger_id" } }, [
+                    _vm._v("Facebook Messenger ID")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "time_zone" } }, [
+                    _vm._v("Time Zone")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "custom_attribute" } }, [
+                    _vm._v("Custom Attribute")
+                  ])
+                ]
+              )
+            ])
+          ])
+        }),
+        0
+      )
+    ]),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "btn btn-success",
+        on: {
+          click: function($event) {
+            $event.preventDefault()
+            return _vm.submit($event)
+          }
+        }
+      },
+      [_vm._v("Continue")]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("CSV Field")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Contact Field")])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -49845,6 +50104,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ImportContacts_vue_vue_type_template_id_9c51640e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ImportContacts_vue_vue_type_template_id_9c51640e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/contacts/MapFields.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/components/contacts/MapFields.vue ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _MapFields_vue_vue_type_template_id_9a0b8538___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MapFields.vue?vue&type=template&id=9a0b8538& */ "./resources/js/components/contacts/MapFields.vue?vue&type=template&id=9a0b8538&");
+/* harmony import */ var _MapFields_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MapFields.vue?vue&type=script&lang=js& */ "./resources/js/components/contacts/MapFields.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _MapFields_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _MapFields_vue_vue_type_template_id_9a0b8538___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _MapFields_vue_vue_type_template_id_9a0b8538___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/contacts/MapFields.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/contacts/MapFields.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/contacts/MapFields.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MapFields_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./MapFields.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/contacts/MapFields.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MapFields_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/contacts/MapFields.vue?vue&type=template&id=9a0b8538&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/contacts/MapFields.vue?vue&type=template&id=9a0b8538& ***!
+  \***************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MapFields_vue_vue_type_template_id_9a0b8538___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./MapFields.vue?vue&type=template&id=9a0b8538& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/contacts/MapFields.vue?vue&type=template&id=9a0b8538&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MapFields_vue_vue_type_template_id_9a0b8538___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MapFields_vue_vue_type_template_id_9a0b8538___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

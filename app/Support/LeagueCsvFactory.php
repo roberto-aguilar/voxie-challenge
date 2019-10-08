@@ -17,7 +17,7 @@ class LeagueCsvFactory implements CsvFactory
 
         return tap(new Csv, function ($csv) use ($reader) {
             $csv->headers = $reader->getHeader();
-            $csv->records = iterator_to_array($reader->getRecords());
+            $csv->records = iterator_to_array($reader->getRecords(), false);
         });
     }
 }
