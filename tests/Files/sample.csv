@@ -1,0 +1,4 @@
+team_id,unsubscribed_status,first_name,last_name,phone,email,sticky_phone_number_id,twitter_id,fb_messenger_id,time_zone,extra_field,another_extra_field
+1,none,Bogdan,Constantin,5555555555,bogdan@voxiechat.com,1,1,1,Eastern Daylight Time,Foo,Bar
+1,none,Brian,Webb,5555555555,brian@voxiechat.com,2,2,2,Eastern Daylight Time,Bar,Baz
+1,none,Roberto,Aguilar,5555555555,roberto@voxiechat.com,3,3,3,Central Daylight Time,Baz,Foo

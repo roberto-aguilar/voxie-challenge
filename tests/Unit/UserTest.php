@@ -3,7 +3,9 @@
 namespace Tests\Unit;
 
 use App\ContactUpload;
+use App\ContactFile;
 use App\User;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Passport\HasApiTokens;
 use Tests\TestCase;
 
@@ -62,5 +64,14 @@ class UserTest extends TestCase
         $traits = class_uses($this->model);
 
         $this->assertContains(HasApiTokens::class, $traits);
+    }
+
+    /** @test */
+    public function it_has_many_file_uploads()
+    {
+        $relation = $this->model->files();
+
+        $this->assertInstanceOf(HasMany::class, $relation);
+        $this->assertInstanceOf(ContactFile::class, $relation->getRelated());
     }
 }

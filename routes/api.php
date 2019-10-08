@@ -13,3 +13,4 @@
 
 /* @var \Illuminate\Routing\Router $router */
 $router->get('contacts', 'Api\ContactController@index');
+$router->post('contacts/files', 'Api\ContactFileController@store');
