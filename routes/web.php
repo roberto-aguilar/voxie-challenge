@@ -26,3 +26,5 @@ $router->post('password/reset', 'Auth\ResetPasswordController@reset')->name('pas
 
 $router->view('/', 'welcome');
 $router->get('home', 'HomeController@index')->name('home');
+
+$router->get('contacts', 'ContactController@index')->name('contacts.index');

@@ -14,6 +14,11 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+import ContactIndex from "./components/contacts/ContactIndex";
+
 const app = new Vue({
     el: '#app',
+    components: {
+        ContactIndex,
+    }
 });
