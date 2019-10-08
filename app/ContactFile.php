@@ -70,4 +70,16 @@ class ContactFile extends Model
     {
         return $this->csv->records;
     }
+
+    /**
+     * @return self
+     */
+    public function markAsProcessed()
+    {
+        $this->forceFill([
+            'processed_at' => $this->freshTimestamp(),
+        ])->save();
+
+        return $this;
+    }
 }

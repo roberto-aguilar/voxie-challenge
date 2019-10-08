@@ -4,8 +4,10 @@ namespace Tests\Feature\Api;
 
 use App\Contact;
 use App\ContactFile;
+use App\Jobs\StoreContacts;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Queue;
 use Laravel\Passport\Passport;
 use Tests\TestCase;
 
@@ -28,6 +30,8 @@ class ContactFileMappingsTest extends TestCase
     /** @test */
     public function users_can_update_contact_file_field_mappings()
     {
+        Queue::fake();
+
         $user = factory(User::class)->create();
         $file = factory(ContactFile::class)->create();
 
@@ -41,6 +45,8 @@ class ContactFileMappingsTest extends TestCase
                 'foo' => 'custom-attribute',
             ]
         ]);
+
+        Queue::assertPushed(StoreContacts::class);
 
         $response->assertOk()
             ->assertJsonFragment([

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\ContactFile;
 use App\Http\Controllers\Controller;
+use App\Jobs\StoreContacts;
 use Illuminate\Http\Request;
 
 class ContactFileMappingsController extends Controller
@@ -28,6 +29,8 @@ class ContactFileMappingsController extends Controller
         $contactFile->update(
             $request->only('field_mappings')
         );
+
+        $this->dispatch(new StoreContacts($contactFile));
 
         return $contactFile;
     }
