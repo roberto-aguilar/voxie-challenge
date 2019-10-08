@@ -4,6 +4,7 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+
 require('./bootstrap');
 
 window.Vue = require('vue');
@@ -15,10 +16,12 @@ window.Vue = require('vue');
  */
 
 import ContactIndex from "./components/contacts/ContactIndex";
+import ImportContacts from "./components/contacts/ImportContacts";
 
 const app = new Vue({
     el: '#app',
     components: {
         ContactIndex,
+        ImportContacts,
     }
 });

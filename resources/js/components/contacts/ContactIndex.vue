@@ -34,6 +34,9 @@
                         <pre v-text="contact.custom_attributes"></pre>
                     </td>
                 </tr>
+                <tr v-if="contacts.length === 0">
+                    <td colspan="12">You don't have any contacts yet, but you can import them in <a href="/contacts/import">here</a></td>
+                </tr>
             </tbody>
         </table>
     </div>

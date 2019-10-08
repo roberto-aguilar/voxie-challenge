@@ -5,10 +5,10 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Contacts</div>
+                    <div class="card-header">Import Contacts</div>
 
                     <div class="card-body">
-                        <contact-index></contact-index>
+                        <import-contacts></import-contacts>
                     </div>
                 </div>
             </div>

@@ -28,3 +28,4 @@ $router->view('/', 'welcome');
 $router->get('home', 'HomeController@index')->name('home');
 
 $router->get('contacts', 'ContactController@index')->name('contacts.index');
+$router->get('contacts/import', 'ContactImportController@index')->name('contacts.import.index');

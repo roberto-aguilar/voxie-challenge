@@ -36,6 +36,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('contacts.index') }}">Contacts</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('contacts.import.index') }}">Import Contacts</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
